@@ -32,7 +32,8 @@ var selector = function (command, userInput) {
 var run = function (arg1, arg2) {
     selector(arg1, arg2);
 }
-run(process.argv[2], process.argv[3]);
+
+run(process.argv[2], process.argv.slice(3).join(" "));
 
 
 
@@ -54,6 +55,9 @@ function concertThis(artist) {
 
 function spotifyThis(song) {
 
+    if(song.length === 0){
+        song = "The Sign"
+    }
 
     spotify.search({ type: "track", query: song }, function (err, data) {
         if (err) {
@@ -74,6 +78,11 @@ function spotifyThis(song) {
 }
 
 function movieThis(movie){
+
+    if(movie.length === 0){
+        movie = "Mr. Nobody"
+    }
+    
     omdb.search(movie, function(err, data) {
         if(err) {
             return console.error(err);
